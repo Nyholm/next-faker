@@ -179,3 +179,6 @@ package.
 
 All classes has defined methods. No magic `__call()` or `__get()`. It is only the
 Modifier proxy classes that includes the magic `__get()`.
+
+This will help IDE auto completion.
+
