@@ -185,3 +185,15 @@ Modifier proxy classes that includes the magic `__get()`.
 
 This will help IDE auto completion.
 
+## Reproducible builds
+
+If someone uses a "seed" to make sure the the generated content is reproducible
+over multiple runs, they can only expect that to be true for the same version of
+Faker.
+
+```php
+use Faker\Factory;
+
+$faker = Factory::create();
+$faker->seed(1);
+```
