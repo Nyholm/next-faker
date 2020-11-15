@@ -169,7 +169,7 @@ There should be a `fakerphp/faker` "core" package with one English US Provider.
 Other languages are split into separate packages like;
 
 - `fakerphp/spanish` (contains es_AR, es_ES, es_PE, es_VE)
-- `fakerphp/frensh` (contains fr_BE, fr_CA, fr_CH, fr_FR)
+- `fakerphp/french` (contains fr_BE, fr_CA, fr_CH, fr_FR)
 - `fakerphp/german`
 - `fakerphp/swedish`
 - etc
