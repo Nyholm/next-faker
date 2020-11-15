@@ -174,3 +174,8 @@ Other languages are split into separate packages like;
 The language specific packages contains language Providers and possibly langauge
 specific extensions. They are maintained and versioned separately from the "core"
 package.
+
+## Magic
+
+All classes has defined methods. No magic `__call()` or `__get()`. It is only the
+Modifier proxy classes that includes the magic `__get()`.
