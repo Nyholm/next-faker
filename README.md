@@ -82,13 +82,15 @@ class Foo implements GeneratorAwareInterface
 {
     private $generator;
 
-    public function bar() {
+    public function bar()
+    {
         $format = '...';
 
         return $this->generator->parse($format);
     }
 
-    public function setGenerator(Generator $g) {
+    public function setGenerator(Generator $g)
+    {
         $this->generator = $g;
     }
 }
@@ -96,18 +98,79 @@ class Foo implements GeneratorAwareInterface
 
 ## Modifiers
 
-We can keep the modifier as is:
+```php
+
+use Faker\Factory;
+
+$faker = Factory::create();
+$faker->withUnique()->name();
+$faker->withMaybe(0.8)->name();
+$faker->withValid(fn($v) => strlen($v) > 3))->name();
+```
+
+We can keep the modifier as Proxy classes like they are in 1.0.
 
 ```php
 class Generator {
   private $unique;
 
+  public function __construct()
+  {
+     // ..
+
+     $this->unique = new UniqueGenerator($this);
+  }
+
   /**
    * @return self The UniqueGenerator is just a proxy
    */
-  public function unique()
+  public function withUnique()
   {
-    return $this->unique ?? $this->unique = new UniqueGenerator($this);
+    return $this->unique;
+  }
+
+  /**
+   * @return self The UniqueGenerator is just a proxy
+   */
+  public function withUnique()
+  {
+    return $this->unique;
+  }
+
+  /**
+   * @return self
+   */
+  public function withMaybe($weight = 0.5, $default = null)
+  {
+    if (is_int($weight) && mt_rand(1, 100) <= $weight) {
+      return $this;
+    }
+
+    return new DefaultGenerator($default);
+  }
+
+  /**
+   * @return self
+   */
+  public function withValid(callable $validator, int $maxRetries = 10000)
+  {
+    return new ValidGenerator($this, $validator, $maxRetries);
   }
 }
 ```
+
+## Packages
+
+There should be a `fakerphp/faker` "core" package with one English US Provider.
+
+Other languages are split into separate packages like;
+
+- `fakerphp/spanish` (contains es_AR, es_ES, es_PE, es_VE)
+- `fakerphp/frensh` (contains fr_BE, fr_CA, fr_CH, fr_FR)
+- `fakerphp/german`
+- `fakerphp/swedish`
+- etc
+
+The language specific packages contains language Providers and possibly langauge
+specific extensions. They are maintained and versioned separately from the "core"
+package.
