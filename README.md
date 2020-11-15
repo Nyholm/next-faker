@@ -96,6 +96,9 @@ class Foo implements GeneratorAwareInterface
 }
 ```
 
+Some "core features" in 1.0 like Doctrine support could probably be moved to a
+separate extension and live in its own package.
+
 ## Modifiers
 
 ```php
