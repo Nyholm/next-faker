@@ -71,7 +71,7 @@ $psr11Container = $builder->build();
 $faker = Factory::create(null, $psr11Container);
 ```
 
-If a Extension implements `GeneratorAwareInterface`, it will be provider a generator
+If a Extension implements `GeneratorAwareInterface`, it will be provided a `Generator`
 just after it is returned from the container.
 
 ```php
