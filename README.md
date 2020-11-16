@@ -31,7 +31,7 @@ Faker can support multiple languages
 use Faker\Factory;
 use Faker\German\Provider\GermanDE;
 use Faker\Swedish\Provider\SwedishSE;
-use Faker\Swedish\English\EnglishNZ;
+use Faker\English\Provider\EnglishNZ;
 use Faker\Provider\EnglishUS;
 
 $faker = Factory::create([new EnglishUS(), new GermanDE(), new SwedishSE()]);
