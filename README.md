@@ -1,6 +1,6 @@
 # Faker 2.0
 
-Here are some rough ideas on how next version of Faker will work.
+Here are some rough ideas on how I think next version of Faker should work.
 
 ## Basic usage
 
