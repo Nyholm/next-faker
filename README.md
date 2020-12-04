@@ -78,7 +78,7 @@ Some "core features" in 1.0 like Doctrine support should be moved to an extensio
 and it will probably live in its own package.
 
 A suggestion about what extension that should be in the core package could be found
-in [providers.md](./PROVIDER.md).
+in [providers.md](./PROVIDERS.md).
 
 ## Packages
 
