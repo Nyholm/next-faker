@@ -27,6 +27,14 @@ Here is how to use an extension:
 $faker->ext(Foo::class)->bar();
 ```
 
+Example implementation of core methods:
+
+```php
+public function firstName() {
+    return $faker->ext(PersonInterface::class)->firstName();
+}
+```
+
 We use PSR-11 to configure extensions:
 
 ```php
@@ -69,13 +77,8 @@ class Foo implements GeneratorAwareInterface
 Some "core features" in 1.0 like Doctrine support should be moved to an extension
 and it will probably live in its own package.
 
-Example implementation of core methods:
-
-```php
-public function firstName() {
-    return $faker->ext(PersonInterface::class)->firstName();
-}
-```
+A suggestion about what extension that should be in the core package could be found
+in [providers.md](./PROVIDER.md).
 
 ## Packages
 
