@@ -71,7 +71,7 @@ and it will probably live in its own package.
 
 Example implementation of core methods:
 
-```
+```php
 public function firstName() {
     return $faker->ext(PersonInterface::class)->firstName();
 }
@@ -103,7 +103,7 @@ detail.
 
 There could be multiple factory methods, one for each locale.
 
-```
+```php
 use Faker\German\GermanDE;
 use Faker\English\EnglishNZ;
 
@@ -117,7 +117,7 @@ like using dependency injection.
 If multiple instances of the `PersonInterface` is provided, we should just pick
 one at random.
 
-```
+```php
 use Faker\German\German\Person as PersonDe;
 use Faker\English\English\Nz\Person as PersonNz;
 
