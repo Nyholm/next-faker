@@ -14,44 +14,12 @@ $faker->city();
 $faker->maleTitle();
 ```
 
-### Language specific
-
-Get faker with the German provider for names, address etc.
-
-```php
-use Faker\Factory;
-use Faker\German\Provider\GermanDE;
-
-$faker = Factory::create(new GermanDE());
-$faker->firstname(); // German first name
-```
-
-Faker can support multiple languages
-```php
-use Faker\Factory;
-use Faker\German\Provider\GermanDE;
-use Faker\Swedish\Provider\SwedishSE;
-use Faker\English\Provider\EnglishNZ;
-use Faker\Provider\EnglishUS;
-
-$faker = Factory::create([new EnglishUS(), new GermanDE(), new SwedishSE()]);
-$faker->firstname(); // random locale.
-
-// Will return an German only clone.
-$faker->withLocale(GermanDE::class);
-$faker->withLocale(GermanDE::class)->firstname(); // German first name
-
-// Throws an exception since the provider is not configured.
-$faker->withLocale(EnglishNZ::class)->firstname();
-```
-
 ## Extensions
 
-The "core" `Faker\Generator` contains a set of predefined of methods; `firstname()`,
-`address()`, `companyName()` etc.
-
-They can be localized with "Language providers". To extend functionality, you need
-an `Extension`.
+All features should be implemented as an "extension". An extension is always single
+locale. The "core" `Faker\Generator` contains a set of predefined of methods; `firstname()`,
+`address()`, `companyName()` etc, which is just syntactic sugar for calling the
+extensions.
 
 Here is how to use an extension:
 
@@ -89,15 +57,76 @@ class Foo implements GeneratorAwareInterface
         return $this->generator->parse($format);
     }
 
-    public function setGenerator(Generator $g)
+    public function withGenerator(Generator $g)
     {
-        $this->generator = $g;
+        $self = clone $this;
+        $self->generator = $g;
+        return $self;
     }
 }
 ```
 
-Some "core features" in 1.0 like Doctrine support could probably be moved to a
-separate extension and live in its own package.
+Some "core features" in 1.0 like Doctrine support should be moved to an extension
+and it will probably live in its own package.
+
+Example implementation of core methods:
+
+```
+public function firstName() {
+    return $faker->ext(PersonInterface::class)->firstName();
+}
+```
+
+## Packages
+
+There should be a `fakerphp/faker` "core" package with one English US Provider.
+That way we know that Faker will work "out of the box".
+
+Other languages are split into separate packages like;
+
+- `fakerphp/spanish` (contains es_AR, es_ES, es_PE, es_VE)
+- `fakerphp/french` (contains fr_BE, fr_CA, fr_CH, fr_FR)
+- `fakerphp/german`
+- `fakerphp/swedish`
+- etc
+
+The language specific packages contains a localed version of the "core" English
+extensions and possibly language specific extensions. They are maintained and versioned
+separately from the "core" package.
+
+## Loading multiple languages
+
+The default way of instantiating a Generator is with a factory method.
+The factory method loads all default extensions. If the factory
+method lives in `Generator::create()` or `Factory::create()` in an implementation
+detail.
+
+There could be multiple factory methods, one for each locale.
+
+```
+use Faker\German\GermanDE;
+use Faker\English\EnglishNZ;
+
+$fakerEn = EnglishNZ::create();
+$fakerDe = GermanDE::create();
+```
+
+One could of course build up all the extensions without a factory method, ie
+like using dependency injection.
+
+If multiple instances of the `PersonInterface` is provided, we should just pick
+one at random.
+
+```
+use Faker\German\German\Person as PersonDe;
+use Faker\English\English\Nz\Person as PersonNz;
+
+$faker = // build a generator some how with both PersonDe and PersonNz
+$faker->firstName(); // German or English name
+$faker->ext(PersonInterface::class)->firstName(); // Same as above
+
+$faker->ext(PersonDe::class)->firstName(); // German name
+```
 
 ## Modifiers
 
@@ -161,22 +190,6 @@ class Generator {
   }
 }
 ```
-
-## Packages
-
-There should be a `fakerphp/faker` "core" package with one English US Provider.
-
-Other languages are split into separate packages like;
-
-- `fakerphp/spanish` (contains es_AR, es_ES, es_PE, es_VE)
-- `fakerphp/french` (contains fr_BE, fr_CA, fr_CH, fr_FR)
-- `fakerphp/german`
-- `fakerphp/swedish`
-- etc
-
-The language specific packages contains language Providers and possibly langauge
-specific extensions. They are maintained and versioned separately from the "core"
-package.
 
 ## Magic
 
