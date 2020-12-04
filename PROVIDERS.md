@@ -1,6 +1,6 @@
 # Providers
 
-|Formatter|Method                       |Comment|V2        |V3        |
+|Extension|Method                       |Comment|V2        |V3        |
 |---------|-----------------------------|-------|----------|----------|
 |medical  |bloodType                    |       |          |          |
 |         |bloodRh                      |       |          |          |
