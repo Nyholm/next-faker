@@ -141,6 +141,7 @@ $faker = Factory::create();
 $faker->withUnique()->name();
 $faker->withMaybe(0.8)->name();
 $faker->withValid(fn($v) => strlen($v) > 3))->name();
+$faker->take(5)->name(); // returns 5 names
 ```
 
 We can keep the modifier as Proxy classes like they are in 1.0.
