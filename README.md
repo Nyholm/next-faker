@@ -21,56 +21,140 @@ locale. The "core" `Faker\Generator` contains a set of predefined of methods; `f
 `address()`, `companyName()` etc, which is just syntactic sugar for calling the
 extensions.
 
-Here is how to use an extension:
-
-```php
-$faker->ext(Foo::class)->bar();
-```
-
-Example implementation of core methods:
-
-```php
-public function firstName() {
-    return $faker->ext(PersonInterface::class)->firstName();
-}
-```
+### Registering an extension
 
 We use PSR-11 to configure extensions:
 
 ```php
+<?php
+
+use Example\Person;
+use Faker\ContainerBuilder;
 use Faker\Factory;
+use Psr\Container;
 
-$builder = new ContainerBuilder();
-$builder->register(Foo:class);
-$psr11Container = $builder->build();
+$containerBuilder = new ContainerBuilder();
 
-$faker = Factory::create(null, $psr11Container);
+$containerBuilder->register(Person::class);
+
+/** @var Container\ContainerInterface $container */
+$container = $containerBuilder->build();
+
+$faker = Factory::create($container);
 ```
 
-If a Extension implements `GeneratorAwareInterface`, it will be provided a `Generator`
-just after it is returned from the container.
+### Implementing an extension
+
+A empty marker interface is provided:
 
 ```php
-use Faker\Extension\GeneratorAwareInterface;
+<?php
+
+namespace Faker\Extension;
+
+interface Extension
+{
+}
+```
+
+This marker interface can be implemented to help with auto-disovery of extensions:
+
+```php
+<?php
+
+namespace Example;
+
+use Faker\Extension;
+
+final class Person implements Extension\Extension
+{
+    /**
+     * @var array<int, string> 
+     */
+    private static array $firstNames = [
+        // ...        
+    ];
+
+    public function firstName(): string
+    {
+        $key = array_rand(self::$firstNames);
+        
+        return self::$firstNames[$key];
+    }
+}
+```
+
+A `GeneratorAwareInterface` is provided:
+
+```php
+<?php
+
+namespace Faker\Extension;
+
 use Faker\Generator;
 
-class Foo implements GeneratorAwareInterface
+interface GeneratorAwareExtension extends Extension
 {
-    private $generator;
+    public function withGenerator(Generator $generator): self
+}
+```
 
-    public function bar()
+This interface can be implemented to gain access to the instance of `Faker\Generator` when returning the extension from the container:
+
+```php
+<?php
+
+namespace Example\Person;
+
+use Faker\Extension;
+use Faker\Generator;
+
+final class Person implements Extension\GeneratorAwareExtension
+{
+    private Generator $generator = null;
+    
+    /**
+     * @var array<int, string> 
+     */
+    private static array $firstNames = [
+        // ...        
+    ];
+
+    public function firstName(): string
     {
-        $format = '...';
-
-        return $this->generator->parse($format);
+        return $this->generator->randomElement(self::$firstnames);
     }
 
-    public function withGenerator(Generator $g)
+    public function withGenerator(Generator $generator): self
     {
-        $self = clone $this;
-        $self->generator = $g;
-        return $self;
+        $instance  = clone $this;
+        
+        $instance->generator = $generator;
+        
+        return $instance;
     }
+}
+```
+
+### Using an extension
+
+```php
+<?php
+
+use Example\Person;
+
+$faker->ext(Person::class)->firstName();
+```
+
+### Example of implementing a core method with an extension
+
+```php
+<?php
+
+use Example\Person;
+
+public function firstName() {
+    return $faker->ext(Person::class)->firstName();
 }
 ```
 
