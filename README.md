@@ -138,9 +138,9 @@ $faker->ext(PersonDe::class)->firstName(); // German name
 use Faker\Factory;
 
 $faker = Factory::create();
-$faker->withUnique()->name();
-$faker->withMaybe(0.8)->name();
-$faker->withValid(fn($v) => strlen($v) > 3))->name();
+$faker->unique()->name();
+$faker->maybe(0.8)->name();
+$faker->satisfies(fn($v) => strlen($v) > 3))->name();
 ```
 
 We can keep the modifier as Proxy classes like they are in 1.0.
