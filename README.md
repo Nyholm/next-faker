@@ -57,7 +57,7 @@ interface Extension
 }
 ```
 
-This marker interface can be implemented to help with auto-disovery of extensions:
+This marker interface can be implemented to help with auto-discovery of extensions:
 
 ```php
 <?php
