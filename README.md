@@ -84,7 +84,7 @@ final class Person implements Extension\Extension
 }
 ```
 
-A `GeneratorAwareInterface` is provided:
+A `GeneratorAwareExtension` interface is provided:
 
 ```php
 <?php
@@ -135,6 +135,8 @@ final class Person implements Extension\GeneratorAwareExtension
     }
 }
 ```
+
+A `GeneratorAwareExtensionTrait` is provided with a default implementation of the `GeneratorAwareExtension` interface.
 
 ### Using an extension
 
