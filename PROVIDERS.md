@@ -14,7 +14,7 @@
 |         |firstNameFemale              |       |deprecated|@firstName|
 |         |lastName                     |       |          |          |
 |address  |cityPrefix                   |       |          |          |
-|         |secundaryAddress             |       |          |          |
+|         |secondaryAddress             |       |          |          |
 |         |state                        |       |          |          |
 |         |stateAbbr                    |       |          |          |
 |         |citySuffix                   |       |          |          |
@@ -124,7 +124,7 @@
 |         |year                         |       |          |          |
 |         |century                      |       |          |          |
 |         |timezone                     |       |          |          |
-|lorum    |word                         |       |          |          |
+|lorem    |word                         |       |          |          |
 |         |words                        |       |          |          |
 |         |sentence                     |       |          |          |
 |         |sentences                    |       |          |          |
