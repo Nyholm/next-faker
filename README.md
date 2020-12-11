@@ -17,7 +17,7 @@ $faker->maleTitle();
 ## Extensions
 
 All features should be implemented as an "extension". An extension is always single
-locale. The "core" `Faker\Generator` contains a set of predefined of methods; `firstname()`,
+locale. The "core" `Faker\Generator` contains a set of predefined methods; `firstname()`,
 `address()`, `companyName()` etc, which is just syntactic sugar for calling the
 extensions.
 
