@@ -252,14 +252,6 @@ class Generator {
   }
 
   /**
-   * @return self The UniqueGenerator is just a proxy
-   */
-  public function withUnique()
-  {
-    return $this->unique;
-  }
-
-  /**
    * @return self
    */
   public function withMaybe($weight = 0.5, $default = null)
