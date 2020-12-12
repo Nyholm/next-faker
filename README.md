@@ -1,6 +1,6 @@
 # Faker 2.0
 
-Here are some rough ideas on how I think next version of Faker should work.
+Here are some rough ideas on how I think the next version of Faker should work.
 
 ## Basic usage
 
@@ -17,7 +17,7 @@ $faker->maleTitle();
 ## Extensions
 
 All features should be implemented as an "extension". An extension is always single
-locale. The "core" `Faker\Generator` contains a set of predefined of methods; `firstname()`,
+locale. The "core" `Faker\Generator` contains a set of predefined methods; `firstname()`,
 `address()`, `companyName()` etc, which is just syntactic sugar for calling the
 extensions.
 
@@ -45,7 +45,7 @@ $faker = Factory::create($container);
 
 ### Implementing an extension
 
-A empty marker interface is provided:
+An empty marker interface is provided:
 
 ```php
 <?php
@@ -160,10 +160,10 @@ public function firstName() {
 }
 ```
 
-Some "core features" in 1.0 like Doctrine support should be moved to an extension
+Some "core features" in 1.0 like Doctrine support should be moved to an extension,
 and it will probably live in its own package.
 
-A suggestion about what extension that should be in the core package could be found
+A suggestion about what extensions should be in the core package can be found
 in [providers.md](./PROVIDERS.md).
 
 ## Packages
@@ -179,7 +179,7 @@ Other languages are split into separate packages like;
 - `fakerphp/swedish`
 - etc
 
-The language specific packages contains a localed version of the "core" English
+The language specific packages contain a localized version of the "core" English
 extensions and possibly language specific extensions. They are maintained and versioned
 separately from the "core" package.
 
@@ -210,7 +210,7 @@ one at random.
 use Faker\German\German\Person as PersonDe;
 use Faker\English\English\Nz\Person as PersonNz;
 
-$faker = // build a generator some how with both PersonDe and PersonNz
+$faker = // build a generator somehow with both PersonDe and PersonNz
 $faker->firstName(); // German or English name
 $faker->ext(PersonInterface::class)->firstName(); // Same as above
 
@@ -252,14 +252,6 @@ class Generator {
   }
 
   /**
-   * @return self The UniqueGenerator is just a proxy
-   */
-  public function withUnique()
-  {
-    return $this->unique;
-  }
-
-  /**
    * @return self
    */
   public function withMaybe($weight = 0.5, $default = null)
@@ -283,14 +275,14 @@ class Generator {
 
 ## Magic
 
-All classes has defined methods. No magic `__call()` or `__get()`. It is only the
+All classes have defined methods. No magic `__call()` or `__get()`. It is only the
 Modifier proxy classes that includes the magic `__get()`.
 
 This will help IDE auto completion.
 
 ## Reproducible builds
 
-If someone uses a "seed" to make sure the the generated content is reproducible
+If someone uses a "seed" to make sure the generated content is reproducible
 over multiple runs, they can only expect that to be true for the same version of
 Faker.
 
