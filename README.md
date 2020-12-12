@@ -163,7 +163,7 @@ public function firstName() {
 Some "core features" in 1.0 like Doctrine support should be moved to an extension,
 and it will probably live in its own package.
 
-A suggestion about what extension that should be in the core package could be found
+A suggestion about what extensions should be in the core package can be found
 in [providers.md](./PROVIDERS.md).
 
 ## Packages
@@ -210,7 +210,7 @@ one at random.
 use Faker\German\German\Person as PersonDe;
 use Faker\English\English\Nz\Person as PersonNz;
 
-$faker = // build a generator some how with both PersonDe and PersonNz
+$faker = // build a generator somehow with both PersonDe and PersonNz
 $faker->firstName(); // German or English name
 $faker->ext(PersonInterface::class)->firstName(); // Same as above
 
