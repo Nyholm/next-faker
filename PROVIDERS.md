@@ -5,19 +5,19 @@
 |address      |address                          |       |          |          |
 |             |buildingNumber                   |       |          |          |
 |             |city                             |       |          |          |
-|             |cityPrefix                       |       |          |          |
+|             |cityPrefix                       |new    |          |          |
 |             |citySuffix                       |       |          |          |
 |             |country                          |       |          |          |
 |             |latitude                         |       |          |          |
 |             |localCoordinates                 |       |          |          |
 |             |longitude                        |       |          |          |
 |             |postcode                         |       |          |          |
-|             |secondaryAddress                 |       |          |          |
-|             |state                            |       |          |          |
-|             |stateAbbr                        |       |          |          |
+|             |secondaryAddress                 |new    |          |          |
+|             |state                            |new    |          |          |
+|             |stateAbbr                        |new    |          |          |
 |             |streetAddress                    |       |          |          |
 |             |streetName                       |       |          |          |
-|             |streetPrefix                     |       |          |          |
+|             |streetPrefix                     |new    |          |          |
 |barcode      |ean13                            |       |          |          |
 |             |ean8                             |       |          |          |
 |             |isbn10                           |       |          |          |
@@ -37,8 +37,8 @@
 |             |shuffle                          |       |          |          |
 |             |shuffleArray                     |       |          |          |
 |             |shuffleString                    |       |          |          |
-|             |toLower                          |       |          |          |
-|             |toUpper                          |       |          |          |
+|             |toLower                          |       |remove    |          |
+|             |toUpper                          |       |remove    |          |
 |             |unique                           |       |          |          |
 |             |valid                            |       |          |          |
 |biased       |biasedNumberBetween              |       |          |          |
@@ -118,7 +118,8 @@
 |             |md5                              |       |          |          |
 |             |sha1                             |       |          |          |
 |             |sha256                           |       |          |          |
-|money        |creditCardDetails                |       |          |          |
+|money        |bankAccountNumber                |new    |          |          |
+|             |creditCardDetails                |       |          |          |
 |             |creditCardExpirationDate         |       |          |          |
 |             |creditCardExpirationDateString   |       |          |          |
 |             |creditCardNumber                 |       |          |          |
@@ -141,6 +142,7 @@
 |             |titleFemale                      |       |deprecated|@title    |
 |phonenumber  |emei                             |       |          |          |
 |             |e164PhoneNumber                  |       |          |          |
+|             |mobileNumber                     |new    |          |          |
 |             |phoneNumber                      |       |          |          |
 |text         |realText                         |       |          |          |
 |uuid         |uuid                             |       |          |          |
