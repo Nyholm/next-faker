@@ -1,6 +1,6 @@
 # Faker 2.0
 
-Here are some rough ideas on how I think the next version of Faker should work.
+Here are some rough ideas on how we think the next version of Faker could work.
 
 ## Basic usage
 
@@ -18,7 +18,7 @@ $faker->maleTitle();
 
 All features should be implemented as an "extension". An extension is always single
 locale. The "core" `Faker\Generator` contains a set of predefined methods; `firstname()`,
-`address()`, `companyName()` etc, which is just syntactic sugar for calling the
+`address()`, `companyName()` etc, which is syntactic sugar for calling the
 extensions.
 
 ### Registering an extension
@@ -160,15 +160,15 @@ public function firstName() {
 }
 ```
 
-Some "core features" in 1.0 like Doctrine support should be moved to an extension,
+Some "core features" in 1.0 like Doctrine support could be moved to an extension,
 and it will probably live in its own package.
 
-A suggestion about what extensions should be in the core package can be found
+A suggestion about what extensions could be in the core package can be found
 in [providers.md](./PROVIDERS.md).
 
 ## Packages
 
-There should be a `fakerphp/faker` "core" package with one English US Provider.
+There could be a `fakerphp/faker` "core" package with one English US Provider.
 That way we know that Faker will work "out of the box".
 
 Other languages are split into separate packages like;
@@ -203,7 +203,7 @@ $fakerDe = GermanDE::create();
 One could of course build up all the extensions without a factory method, ie
 like using dependency injection.
 
-If multiple instances of the `PersonInterface` is provided, we should just pick
+If multiple instances of the `PersonInterface` is provided, we could pick
 one at random.
 
 ```php
@@ -244,7 +244,7 @@ class Generator {
   }
 
   /**
-   * @return self The UniqueGenerator is just a proxy
+   * @return self The UniqueGenerator is a proxy
    */
   public function withUnique()
   {
