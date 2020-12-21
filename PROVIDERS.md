@@ -75,8 +75,9 @@
 |             |timezone                         |       |          |          |
 |             |unixTime                         |       |          |          |
 |             |year                             |       |          |          |
-|file         |file                             |       |          |          |
-|             |fileExtension                    |       |          |          |
+|file         |extension                        |renamed from fileExtension |          |          |
+|             |file                             |       |remove    |          |
+|             |filePath                         |new    |          |          |
 |             |mimeType                         |       |          |          |
 |html         |randomHtml                       |       |          |          |
 |image        |image                            |       |remove    |          |
